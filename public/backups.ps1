@@ -65,7 +65,7 @@ class backups:system.Data.DataTable {
         ##  enter data in the row.
         $row.Path         = $Path
         $row.BackupFile   = $BackupFile
-        $row.Type         = [ValidatedType]::New($Type)
+        $row.Type         = $Type
         $row.LastModified = $LastModified
         if ($null -ne $Destination) {
             $row.Destination = $Destination
