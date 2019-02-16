@@ -24,6 +24,7 @@ class backups:system.Data.DataTable {
             BackupFile   = "System.String"
             Type         = "System.String"
             LastModified = "System.DateTime"
+            Destination  = "System.String"
         }
 
         ##  loop through the column definitions.
@@ -51,7 +52,10 @@ class backups:system.Data.DataTable {
         $Type,
 
         [System.DateTime]
-        $LastModified
+        $LastModified,
+
+        [System.String]
+        $Destination = $null
 
     ) {
 
@@ -63,6 +67,9 @@ class backups:system.Data.DataTable {
         $row.BackupFile   = $BackupFile
         $row.Type         = $Type
         $row.LastModified = $LastModified
+        if ($null -ne $Destination) {
+            $row.Destination = $Destination
+        }
 
         ##  Add the row to 'this' table.
         $this.Rows.Add($row)
