@@ -106,10 +106,7 @@ function Get-AWSLatestFile {
 
         }
 
-        ##  $restoreDef.BackupFile = $($Backups | Where-Object {$_.Type -eq "FULL"} | Select-Object BackupFile).BackupFile
-
         ##  ALL DONE
-        ##  Return $restoreDef
         Return $Backups
 
     }
