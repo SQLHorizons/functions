@@ -26,7 +26,7 @@ function Get-AWSLatestFile {
             }
 
             ##  get a collection of all backups of the database.
-            Write-Output "VERBOSE: List backup files in: $($ReadFiles.BucketName)/$($ReadFiles.KeyPrefix)."
+            Write-Verbose "List backup files in: $($ReadFiles.BucketName)/$($ReadFiles.KeyPrefix)."
             $AllBackups = (Get-S3Object @ReadFiles).Where{ [IO.Path]::GetExtension($_.Key)}
 
             ##  initialise backups class.
@@ -35,7 +35,7 @@ function Get-AWSLatestFile {
             foreach ($Type in @("FULL", "DIFF", "LOG")) {
 
                 ##  get the last backup 'Type' of the database.
-                Write-Output "VERBOSE: Listing backups of type: $Type"
+                Write-Verbose "Listing backups of type: $Type"
                 $BackupType = @{
                     Name  = "Last$Type"
                     Force = $true
