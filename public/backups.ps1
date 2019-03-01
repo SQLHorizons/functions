@@ -31,11 +31,15 @@ class backups:system.Data.DataTable {
         foreach ($column in $columnDefs.Keys) {
 
             ##  create data columns.
-            $this.columns.add(
-                [System.Data.DataColumn]::New(
-                    $column, $columnDefs[$column]
-                )
+            $entity = [System.Data.DataColumn]::New(
+                $column, $columnDefs[$column]
             )
+            if ($column -eq "id") {
+                ##  set column to auto increment.
+                $entity.AutoIncrement = $true
+            }
+            $this.columns.add($entity)
+
         }
     }
 
