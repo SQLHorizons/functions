@@ -20,6 +20,7 @@ class backups:system.Data.DataTable {
 
         ##  the column definition for the backups table.
         $columnDefs = @{
+            id           = "System.Int32"
             Path         = "System.String"
             BackupFile   = "System.String"
             Type         = "System.String"
@@ -39,7 +40,6 @@ class backups:system.Data.DataTable {
                 $entity.AutoIncrement = $true
             }
             $this.columns.add($entity)
-
         }
     }
 
@@ -67,9 +67,10 @@ class backups:system.Data.DataTable {
         $row = $this.NewRow()
 
         ##  enter data in the row.
-        $row.Path         = $Path
-        $row.BackupFile   = $BackupFile
-        $row.Type         = $Type
+        $row.id
+        $row.Path = $Path
+        $row.BackupFile = $BackupFile
+        $row.Type = $Type
         $row.LastModified = $LastModified
         if ($null -ne $Destination) {
             $row.Destination = $Destination
