@@ -93,6 +93,7 @@ function Connect-SQL
         }
 
         $SQLServer.ConnectionContext.ServerInstance = $serverInstance
+        $SQLServer.ConnectionContext.DatabaseName = "master"
 
         Write-Verbose "Connecting to SQL instance: $serverInstance."
         $SQLServer.ConnectionContext.Connect()
