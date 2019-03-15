@@ -45,11 +45,6 @@ function Connect-SQL
 
     Try {
 
-        Write-Verbose "ServerName: $ServerName"
-        Write-Verbose "SQLInstanceName: $SQLInstanceName"
-        Write-Verbose "SetupCredential: $SetupCredential"
-        Write-Verbose "LoginType: $LoginType"
- 
         switch ($SQLInstanceName) {
             ##  check for default instance name.
             {$_ -eq "MSSQLSERVER"} {
