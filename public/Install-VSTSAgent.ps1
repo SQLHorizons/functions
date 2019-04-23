@@ -19,6 +19,8 @@ function Install-VSTSAgent {
             vstsAccount = "sqlhorizons"
             workspace   = "DB_Build"
             token       = $env:VSTS_TOKEN
+            Repository  = ".build"
+            version     = "1.0.6.3"
         }
     )
 
@@ -38,6 +40,11 @@ function Install-VSTSAgent {
         [Environment]::SetEnvironmentVariable("DeploymentGroup", $($ServerParams.DeploymentGroup), "Machine")
         [Environment]::SetEnvironmentVariable("ServerHaDrRole", $($ServerParams.role), "Machine")
         [Environment]::SetEnvironmentVariable("EndPoint", $($ServerParams.dns), "Machine")
+        
+        ##  install deploy module.
+        Remove-Module deploy -Force -ErrorAction Ignore
+        Get-InstalledModule deploy -RequiredVersion $($vstsParams.version) -ErrorAction Ignore | Uninstall-Module -Force -ErrorAction Ignore
+        Find-Module deploy -Repository $($vstsParams.Repository) -MinimumVersion $($vstsParams.version) | Install-Module -AllowClobber -Force
 
         ##  if not exists create resource folder.
         if (-not (Test-Path -Path $vstsParams.path)) {
