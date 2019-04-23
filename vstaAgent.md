@@ -3,7 +3,7 @@
 $ServerParams = @{
     DeploymentGroup = "UKDB-REF-BUILD-BLUE"
     role            = "mirror"
-    dns             = "db-oc22.avivahome.com"
+    dns             = $env:EndPoint
 }
 
 Install-VSTSAgent -ServerParams $ServerParams -Verbose
