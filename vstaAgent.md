@@ -6,6 +6,11 @@ $ServerParams = @{
     dns             = $env:EndPoint
 }
 
-Install-VSTSAgent -ServerParams $ServerParams -Verbose
+##  import functions.
+$url = "https://raw.githubusercontent.com/SQLHorizons/functions/master/public"
+[Environment]::SetEnvironmentVariable("functions", $url, "Process")
+
+Invoke-WebRequest -UseBasicParsing "$env:functions/Install-VSTSAgent.ps1" | Invoke-Expression
+Install-VSTSAgentPool -ServerParams $ServerParams -Verbose
 
 ```
