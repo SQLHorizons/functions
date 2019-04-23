@@ -6,8 +6,24 @@ function Install-VSTSAgent {
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.Object]
-        $vstsParams
+        $ServerParams,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
+        [System.Object]
+        $vstsParams = @{
+            agent       = "http://ms-oc27:8081/repository/resources/vsts-agents/vsts-agent-win-x64-2.150.0.zip"
+            path        = "C:/ProgramData/.resources"
+            vsts        = "C:/ProgramData/vsts"
+            vstsProject = "UKDB"
+            vstsAccount = "sqlhorizons"
+            workspace   = "DB_Build"
+            token       = $env:VSTS_TOKEN
+        }
     )
+
+    ##  vulnerability Fix for CVE-2017-8563: set security protocol type to TLS 1.2
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::TLS12
 
     Try {
 
@@ -18,8 +34,10 @@ function Install-VSTSAgent {
         $start = Get-Date
         Write-Information "VERBOSE: Executing Script: $($MyInvocation.MyCommand.Name)."
 
-        ##  vulnerability Fix for CVE-2017-8563: set security protocol type to TLS 1.2
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::TLS12
+        ##  project environment variables (tags).
+        [Environment]::SetEnvironmentVariable("DeploymentGroup", $($ServerParams.DeploymentGroup), "Machine")
+        [Environment]::SetEnvironmentVariable("role", $($ServerParams.role), "Machine")
+        [Environment]::SetEnvironmentVariable("EndPoint", $($ServerParams.dns), "Machine")
 
         ##  if not exists create resource folder.
         if (-not (Test-Path -Path $vstsParams.path)) {
@@ -37,8 +55,23 @@ function Install-VSTSAgent {
         $Webclient.DownloadFile($vstsParams.agent, $file)
 
         ##  extract zip file.
-        Expand-Archive $file -DestinationPath $vstsParams.vsts
+        Expand-Archive $file -DestinationPath $vstsParams.vsts -Force
         Write-Verbose "Extracted $(Split-Path $file -Leaf) to $($vstsParams.vsts)."
+
+        ##  get machine metadata.
+        <#
+        $uri = "169.254.169.254/latest/meta-data"
+        $tags = @(
+            "aws_ami=$((Invoke-WebRequest $uri/ami-id).Content)"
+            "aws_az=$((Invoke-WebRequest $uri/placement/availability-zone).Content)"
+            "iam_instance_profile=$(((Invoke-WebRequest $uri/iam/info).Content | ConvertFrom-Json).InstanceProfileArn)"
+            "aws_id=$((Invoke-WebRequest $uri/instance-id).Content)"
+            "aws_type=$((Invoke-WebRequest $uri/instance-type).Content)"
+            "aws_ip=$((Invoke-WebRequest $uri/local-ipv4).Content)"
+            "role=$($ServerParams.role)"
+            "dns=$($ServerParams.dns)"
+        )
+        #>
 
         ##  build install parameters.
         $Install = @{
@@ -46,10 +79,7 @@ function Install-VSTSAgent {
             ArgumentList          = @(
                 "configure"
                 "--unattended"
-                "--deploymentgroup"
-                "--deploymentgroupname $($vstsParams.DeploymentGroup)"
-                "--adddeploymentgrouptags"
-                "--deploymentgrouptags $($vstsParams.tags -join ",")"
+                "--pool $($ServerParams.DeploymentGroup)"
                 "--agent $env:COMPUTERNAME"
                 "--url https://$($vstsParams.vstsAccount).visualstudio.com"
                 "--auth PAT"
