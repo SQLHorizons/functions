@@ -36,7 +36,7 @@ function Install-VSTSAgent {
 
         ##  project environment variables (tags).
         [Environment]::SetEnvironmentVariable("DeploymentGroup", $($ServerParams.DeploymentGroup), "Machine")
-        [Environment]::SetEnvironmentVariable("role", $($ServerParams.role), "Machine")
+        [Environment]::SetEnvironmentVariable("ServerHaDrRole", $($ServerParams.role), "Machine")
         [Environment]::SetEnvironmentVariable("EndPoint", $($ServerParams.dns), "Machine")
 
         ##  if not exists create resource folder.
