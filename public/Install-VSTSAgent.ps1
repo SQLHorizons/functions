@@ -12,7 +12,7 @@ function Install-VSTSAgent {
         [ValidateNotNullOrEmpty()]
         [System.Object]
         $vstsParams = @{
-            agent       = "http://ms-oc27:8081/repository/resources/vsts-agents/vsts-agent-win-x64-2.150.0.zip"
+            agent       = "http://ms-oc27:8081/repository/resources/vsts-agents/vsts-agent-win-x64-2.151.0.zip"
             path        = "C:/ProgramData/.resources"
             vsts        = "C:/ProgramData/vsts"
             vstsProject = "UKDB"
