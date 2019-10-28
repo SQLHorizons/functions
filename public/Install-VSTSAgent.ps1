@@ -12,7 +12,7 @@ function Install-VSTSAgent {
         [ValidateNotNullOrEmpty()]
         [System.Object]
         $vstsParams = @{
-            agent       = "http://ms-oc27:8081/repository/resources/vsts-agents/vsts-agent-win-x64-2.151.0.zip"
+            agent       = "https://vstsagentpackage.azureedge.net/agent/2.158.0/vsts-agent-win-x64-2.158.0.zip"
             path        = "C:/ProgramData/.resources"
             vsts        = "C:/ProgramData/vsts"
             vstsProject = "UKDB"
@@ -40,11 +40,6 @@ function Install-VSTSAgent {
         [Environment]::SetEnvironmentVariable("DeploymentGroup", $($ServerParams.DeploymentGroup), "Machine")
         [Environment]::SetEnvironmentVariable("ServerHaDrRole", $($ServerParams.role), "Machine")
         [Environment]::SetEnvironmentVariable("EndPoint", $($ServerParams.dns), "Machine")
-        
-        ##  install deploy module.
-        Remove-Module deploy -Force -ErrorAction Ignore
-        Get-InstalledModule deploy -RequiredVersion $($vstsParams.version) -ErrorAction Ignore | Uninstall-Module -Force -ErrorAction Ignore
-        Find-Module deploy -Repository $($vstsParams.Repository) -MinimumVersion $($vstsParams.version) | Install-Module -AllowClobber -Force
 
         ##  if not exists create resource folder.
         if (-not (Test-Path -Path $vstsParams.path)) {
