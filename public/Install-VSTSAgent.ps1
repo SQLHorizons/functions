@@ -19,8 +19,6 @@ function Install-VSTSAgent {
             vstsAccount = "sqlhorizons"
             workspace   = "DB_Build"
             token       = $env:VSTS_TOKEN
-            Repository  = ".build"
-            version     = "1.0.6.3"
         }
     )
 
@@ -59,21 +57,6 @@ function Install-VSTSAgent {
         ##  extract zip file.
         Expand-Archive $file -DestinationPath $vstsParams.vsts -Force
         Write-Verbose "Extracted $(Split-Path $file -Leaf) to $($vstsParams.vsts)."
-
-        ##  get machine metadata.
-        <#
-        $uri = "169.254.169.254/latest/meta-data"
-        $tags = @(
-            "aws_ami=$((Invoke-WebRequest $uri/ami-id).Content)"
-            "aws_az=$((Invoke-WebRequest $uri/placement/availability-zone).Content)"
-            "iam_instance_profile=$(((Invoke-WebRequest $uri/iam/info).Content | ConvertFrom-Json).InstanceProfileArn)"
-            "aws_id=$((Invoke-WebRequest $uri/instance-id).Content)"
-            "aws_type=$((Invoke-WebRequest $uri/instance-type).Content)"
-            "aws_ip=$((Invoke-WebRequest $uri/local-ipv4).Content)"
-            "role=$($ServerParams.role)"
-            "dns=$($ServerParams.dns)"
-        )
-        #>
 
         ##  build install parameters.
         $Install = @{
