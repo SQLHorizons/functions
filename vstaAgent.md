@@ -1,7 +1,7 @@
 ```powershell
 
 $ServerParams = @{
-    DeploymentGroup = "HOME"
+    DeploymentGroup = "UKDB-HOME"
     role            = "henry"
     dns             = "WIN10HENY12-DC5"
 }
