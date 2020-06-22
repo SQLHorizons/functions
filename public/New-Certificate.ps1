@@ -39,7 +39,7 @@ function New-Certificate {
             $Certificate = New-SelfSignedCertificate @SelfSignedCertificate
 
             ##  Export Personal Information Exchange Certificate.
-            $StoreCertificate = @{
+            $global:StoreCertificate = @{
                 cert     = "cert:\LocalMachine\My\$($Certificate.Thumbprint)"
                 FilePath = [System.IO.Path]::GetTempFileName()
                 Password = New-Password
