@@ -45,7 +45,7 @@ function ConvertTo-Bytes {
         System.Int64.
 
     .EXAMPLE
-        PS> "1MB" | ConvertTo-Bytes
+        "1MB" | ConvertTo-Bytes
         1048576
 
     .LINK
