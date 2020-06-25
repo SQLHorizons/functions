@@ -3,7 +3,7 @@ function ConvertTo-Bytes {
     [OutputType([System.Int64])]
     param (
         [Parameter(ValueFromPipeline)]
-        [ValidatePattern("[. 0-9]+(B|KB|MB|GB|TB)", Options = "None")]
+        [ValidatePattern("[. 0-9]+(B|KB|MB|GB|TB|PB)", Options = "None")]
         [System.String]
         $InputObject
     )
@@ -15,6 +15,7 @@ function ConvertTo-Bytes {
             "MB" { $Result = [Int64]$InputObject.Replace("MB","") * 1MB }
             "GB" { $Result = [Int64]$InputObject.Replace("GB","") * 1GB }
             "TB" { $Result = [Int64]$InputObject.Replace("TB","") * 1TB }
+            "PB" { $Result = [Int64]$InputObject.Replace("PB","") * 1PB }
         }
 
         ##  ALL DONE
@@ -25,3 +26,28 @@ function ConvertTo-Bytes {
         $PSCmdlet.ThrowTerminatingError($PSItem)
     }
 }
+
+<#
+    .SYNOPSIS
+        Integer with Multiplier Suffix converted to bytes.
+        
+    .DESCRIPTION
+        String input of pattern [. 0-9]+(B|KB|MB|GB|TB) is converted to 64-bit integer,
+        expressing the byte equivalent.
+
+    .PARAMETER InputObject
+        String input of pattern [. 0-9]+(B|KB|MB|GB|TB), for example: 1GB, 50MB, 20KB, 5TB. 10B.
+
+    .INPUTS
+        System.String.
+
+    .OUTPUTS
+        System.Int64.
+
+    .EXAMPLE
+        PS> "1MB" | ConvertTo-Bytes
+        1048576
+
+    .LINK
+        https://raw.githubusercontent.com/SQLHorizons/functions/master/public/ConvertTo-Bytes.ps1
+#>
