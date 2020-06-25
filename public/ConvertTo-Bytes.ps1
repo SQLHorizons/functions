@@ -2,7 +2,7 @@ function ConvertTo-Bytes {
     [CmdletBinding()]
     [OutputType([System.Int64])]
     param (
-        [Parameter(ValueFromPipeline)]
+        [Parameter(ValueFromPipeline = $true, DontShow = $true)]
         [ValidatePattern("[. 0-9]+(B|KB|MB|GB|TB|PB)", Options = "None")]
         [System.String]
         $InputObject
