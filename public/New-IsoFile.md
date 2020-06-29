@@ -10,6 +10,10 @@ Get-ChildItem "$source_dir" | New-ISOFile -path $Newiso -Title "SQL2016_x64_ENU"
 
 ```
 
+## Creates a boot-able .iso file
+
+This command creates a boot-able .iso file containing the content from c:\WinPE folder, but the folder itself isn't included. Boot file ##  etfsboot.com can be found in Windows ADK.
+Refer to IMAPI_MEDIA_PHYSICAL_TYPE enumeration for possible media types: http://msdn.microsoft.com/en-us/library/windows/desktop/aa366217(v=vs.85).aspx
 
 ```powershell
 $NewIsoFileParams = @{
@@ -20,7 +24,4 @@ $NewIsoFileParams = @{
     Force    = $true
 }
 Get-ChildItem "C:\.images\iso\AUTOWIN2019DVD" | New-IsoFile @NewIsoFileParams
-
-##  This command creates a boot-able .iso file containing the content from c:\WinPE folder, but the folder itself isn't included. Boot file ##  ##  etfsboot.com can be found in Windows ADK.
-##  Refer to IMAPI_MEDIA_PHYSICAL_TYPE enumeration for possible media types: http://msdn.microsoft.com/en-us/library/windows/desktop/aa366217(v=vs.85).aspx
 ```
