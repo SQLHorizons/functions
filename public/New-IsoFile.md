@@ -20,7 +20,6 @@ Refer to IMAPI_MEDIA_PHYSICAL_TYPE enumeration for possible media types: http://
 $NewIsoFileParams = @{
     Path     = "C:\.images\iso\AUTOWIN2019DVD.iso"
     BootFile = "C:\.images\iso\AUTOWIN2019DVD\efi\microsoft\boot\efisys.bin"
-    Media    = "DVDPLUSR"
     Title    = "SSS_X64FREE_EN-US_DV9"
     Force    = $true
     Verbose  = $true
