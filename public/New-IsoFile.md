@@ -17,9 +17,11 @@ This command creates a boot-able .iso file containing the content from c:\WinPE 
 Refer to IMAPI_MEDIA_PHYSICAL_TYPE enumeration for possible media types: http://msdn.microsoft.com/en-us/library/windows/desktop/aa366217(v=vs.85).aspx
 
 ```powershell
+$Media = "DVDPLUSRW_DUALLAYER"
 $NewIsoFileParams = @{
     Path     = "C:\.images\iso\AUTOWIN2019DVD.iso"
     BootFile = "C:\.images\iso\AUTOWIN2019DVD\efi\microsoft\boot\efisys.bin"
+    Media    = $Media
     Title    = "SSS_X64FREE_EN-US_DV9"
     Force    = $true
     Verbose  = $true
