@@ -12,10 +12,15 @@ Get-ChildItem "$source_dir" | New-ISOFile -path $Newiso -Title "SQL2016_x64_ENU"
 
 
 ```powershell
+$NewIsoFileParams = @{
+    Path     = "C:\.images\iso\AUTOWIN2019DVD.iso"
+    BootFile = "${env:ProgramFiles(x86)}\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg\efisys.bin"
+    Media    = "DVDPLUSR"
+    Title    = "SSS_X64FREE_EN-US_DV9"
+    Force    = $true
+}
+Get-ChildItem "C:\.images\iso\AUTOWIN2019DVD" | New-IsoFile @NewIsoFileParams
 
-$source_dir = "C:\.images\iso\AUTOWIN2019DVD"
-$Newiso     = "C:\.images\iso\AUTOWIN2019DVD.iso"
-
-Get-ChildItem "$source_dir" -Recurse | New-ISOFile -path $Newiso -Title "SSS_X64FREE_EN-US_DV9" -Verbose -Force
-
+##  This command creates a boot-able .iso file containing the content from c:\WinPE folder, but the folder itself isn't included. Boot file ##  ##  etfsboot.com can be found in Windows ADK.
+##  Refer to IMAPI_MEDIA_PHYSICAL_TYPE enumeration for possible media types: http://msdn.microsoft.com/en-us/library/windows/desktop/aa366217(v=vs.85).aspx
 ```
