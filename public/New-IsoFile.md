@@ -23,6 +23,7 @@ $NewIsoFileParams = @{
     Media    = "DVDPLUSR"
     Title    = "SSS_X64FREE_EN-US_DV9"
     Force    = $true
+    Verbose  = $true
 }
 Get-ChildItem "C:\.images\iso\AUTOWIN2019DVD" | New-IsoFile @NewIsoFileParams
 ```
