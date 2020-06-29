@@ -35,7 +35,7 @@ Get-ChildItem "C:\.images\iso\AUTOWIN2019DVD" | New-IsoFile @NewIsoFileParams
 - "DVDRAM"
 - "DVDPLUSR"
 - "DVDPLUSRW"
-- "DVDPLUSR_DUALLAYER"
+- "**DVDPLUSR_DUALLAYER**"
 - "DVDDASHR"
 - "DVDDASHRW"
 - "**DVDDASHR_DUALLAYER**"
