@@ -28,3 +28,21 @@ $NewIsoFileParams = @{
 }
 Get-ChildItem "C:\.images\iso\AUTOWIN2019DVD" | New-IsoFile @NewIsoFileParams
 ```
+
+## Media Types:
+
+- "CDR"
+- "CDRW"
+- "DVDRAM"
+- "DVDPLUSR"
+- "DVDPLUSRW"
+- "DVDPLUSR_DUALLAYER"
+- "DVDDASHR"
+- "DVDDASHRW"
+- "DVDDASHR_DUALLAYER"
+- "DISK"
+- "DVDPLUSRW_DUALLAYER"
+- "BDR"
+- "BDRE"
+
+- Default: "DVDPLUSRW_DUALLAYER"
