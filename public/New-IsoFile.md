@@ -9,3 +9,13 @@ $Newiso     = "C:\Users\Administrator\Downloads\SQLServer2016-SP2-x64-ENU-Exp.is
 Get-ChildItem "$source_dir" | New-ISOFile -path $Newiso -Title "SQL2016_x64_ENU" -Verbose -Force
 
 ```
+
+
+```powershell
+
+$source_dir = "C:\.images\iso\AUTOWIN2019DVD"
+$Newiso     = "C:\.images\iso\AUTOWIN2019DVD.iso"
+
+Get-ChildItem "$source_dir" -Recurse | New-ISOFile -path $Newiso -Title "SSS_X64FREE_EN-US_DV9" -Verbose -Force
+
+```
