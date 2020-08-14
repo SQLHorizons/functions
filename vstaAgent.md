@@ -56,3 +56,22 @@ Invoke-WebRequest -UseBasicParsing "$env:functions/Install-VSTSAgent.ps1" | Invo
 Install-VSTSAgent -ServerParams $ServerParams -Verbose
 
 ```
+
+## nano agent
+
+```powershell
+
+$ServerParams = @{
+    DeploymentGroup = "UKDB-DEVOPS"
+    role            = "deployment"
+    dns             = "ado-agent.sqlhorizons.com"
+}
+
+##  import functions.
+$url = "https://raw.githubusercontent.com/SQLHorizons/functions/master/public"
+[Environment]::SetEnvironmentVariable("functions", $url, "Process")
+
+Invoke-WebRequest -UseBasicParsing "$env:functions/Install-VSTSAgent.ps1" | Invoke-Expression
+Install-VSTSAgent -ServerParams $ServerParams -Verbose
+
+```
