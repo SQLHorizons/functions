@@ -73,7 +73,7 @@ function Install-VSTSAgent {
                 "configure"
                 "--unattended"
                 "--pool $($ServerParams.DeploymentGroup)"
-                "--agent $env:COMPUTERNAME"
+                "--agent $agentName"
                 "--url https://$($vstsParams.vstsAccount).visualstudio.com"
                 "--auth PAT"
                 "--token $($vstsParams.token)"
