@@ -39,6 +39,14 @@ function Install-VSTSAgent {
         [Environment]::SetEnvironmentVariable("ServerHaDrRole", $($ServerParams.role), "Machine")
         [Environment]::SetEnvironmentVariable("EndPoint", $($ServerParams.dns), "Machine")
 
+        ##  if not exists agent-name parameter.
+        if ( [string]::IsNullOrEmpty($ServerParams.agentName) ) {
+            $agentName = $env:COMPUTERNAME
+        }
+        else {
+            $agentName = $ServerParams.agentName
+        }
+
         ##  if not exists create resource folder.
         if (-not (Test-Path -Path $vstsParams.path)) {
             New-Item -ItemType directory -Path $vstsParams.path -Force | Out-Null
